@@ -1,4 +1,3 @@
-dist: focal
 language: csharp
 mono: none
 dotnet: 8.0
@@ -10,3 +9,12 @@ install:
 script:
   - dotnet build
   - dotnet test MyWebApp.Tests/MyWebApp.Tests.csproj
+
+before_deploy:
+  - docker build -t mywebapp .
+
+deploy:
+  provider: script
+  script: bash deploy.sh
+  on:
+    branch: main
