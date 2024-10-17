@@ -1,0 +1,11 @@
+language: csharp
+mono: none
+dotnet: 8.0
+solution: MyWebApp.sln
+
+install:
+  - dotnet restore
+
+script:
+  - dotnet build
+  - dotnet test MyWebApp.Tests/MyWebApp.Tests.csproj
