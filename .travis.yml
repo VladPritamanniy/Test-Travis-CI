@@ -7,8 +7,6 @@ solution: MyWebApp.sln
 services:
   - docker
 
-before_install:
-  - sudo apt-getinstall -y awscli
 
 install:
   - dotnet restore
@@ -18,11 +16,7 @@ script:
   - dotnet test MyWebApp.Tests/MyWebApp.Tests.csproj
 
 before_deploy:
-  - docker build -t mywebapp .
   - chmod +x deploy.sh
-
-after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 deploy:
   provider: script
