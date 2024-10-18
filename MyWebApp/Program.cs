@@ -5,6 +5,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/Page", () => "World Hello!");
+app.MapGet("/Test", () => "Test");
 
 app.Run();
 public partial class Program { }
