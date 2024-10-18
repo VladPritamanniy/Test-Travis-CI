@@ -21,7 +21,7 @@ script:
 before_deploy:
   - chmod +x deploy.sh
   - docker images
-  - docker build -t mywebapp .
+  - docker build -t vladprytamannyi/mywebapp:latest .
   - docker images
 
 deploy:
