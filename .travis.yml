@@ -7,6 +7,9 @@ solution: MyWebApp.sln
 services:
   - docker
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y awscli
 
 install:
   - dotnet restore
@@ -17,6 +20,7 @@ script:
 
 before_deploy:
   - chmod +x deploy.sh
+  - docker build -t mywebapp .
 
 deploy:
   provider: script
