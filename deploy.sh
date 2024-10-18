@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Логин в AWS ECR
-$(aws ecr get-login --no-include-email --region eu-north-1)
+REGION="eu-north-1"
+REPOSITORY_NAME="mywebapp"
+ACCOUNT_ID="904233130767"
 
-# Создание репозитория, если он не существует
-aws ecr create-repository --repository-name mywebapp || true
+$(aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com)
 
-# Тегирование и отправка образа
-docker tag mywebapp:latest 904233130767.dkr.ecr.eu-north-1.amazonaws.com/mywebapp:latest
-docker push 904233130767.dkr.ecr.eu-north-1.amazonaws.com/mywebapp:latest
+aws ecr create-repository --repository-name $REPOSITORY_NAME || true
+
+docker tag mywebapp:latest $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
+docker push $ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME:latest
